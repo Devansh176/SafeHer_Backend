@@ -26,7 +26,7 @@ public class AuthService {
             return existingUser.get();
         }
         User newUser = new User();
-        newUser.setUid(uid);
+        newUser.setUid(Integer.parseInt(uid));
         newUser.setEmail(email);
         newUser.setDisplayName(decodedToken.getName());
 
