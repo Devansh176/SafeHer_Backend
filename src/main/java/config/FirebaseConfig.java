@@ -18,6 +18,11 @@ public class FirebaseConfig {
         FirebaseOptions options = FirebaseOptions.builder().setCredentials(
                 GoogleCredentials.fromStream(serviceAccount)
         ).build();
+
+        FirebaseApp app = FirebaseApp.getInstance();
+        System.out.println("Firebase App Name: " + app.getName());
+
         return FirebaseApp.initializeApp(options);
+
     }
 }

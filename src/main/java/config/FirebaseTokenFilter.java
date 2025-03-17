@@ -7,12 +7,17 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
+import java.util.Collections;
 
 public class FirebaseTokenFilter extends OncePerRequestFilter {
+
+    private static final Logger logger = LoggerFactory.getLogger(FirebaseTokenFilter.class);
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -28,16 +33,16 @@ public class FirebaseTokenFilter extends OncePerRequestFilter {
                 String uid = decodedToken.getUid();
 
                 UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(uid, null, null);
+                        new UsernamePasswordAuthenticationToken(uid, null, Collections.emptyList());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-
+                logger.info("Firebase token verified for UID: {}", uid);
             } catch (FirebaseAuthException e) {
-                 SecurityContextHolder.clearContext();
-                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Firebase ID token");
-                 return;
+                logger.error("Invalid Firebase ID token", e);
+                SecurityContextHolder.clearContext();
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Firebase ID token");
+                return;
             }
         }
-
         filterChain.doFilter(request, response);
     }
 }

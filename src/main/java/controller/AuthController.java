@@ -1,30 +1,29 @@
 package controller;
 
-import com.google.firebase.auth.FirebaseAuthException;
-import entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import payload.AuthResponse;
+import payload.GoogleLoginRequest;
+import payload.LoginRequest;
 import service.AuthService;
 
 @RestController
-@RequestMapping("/auth")
-
+@RequestMapping("/api/auth")
 public class AuthController {
 
-    @Autowired
-    private AuthService authService;
+    private final AuthService authService;
+
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestParam String firebaseToken) {
-        try {
-            User user = authService.authenticateUser(firebaseToken);
-            return ResponseEntity.ok(user);
-        } catch (FirebaseAuthException e) {
-            return ResponseEntity.badRequest().body("Authentication failed: " + e.getMessage());
-        }
+    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
+        return ResponseEntity.ok(authService.login(request));
+    }
+
+    @PostMapping("/google-login")
+    public ResponseEntity<AuthResponse> googleLogin(@RequestBody GoogleLoginRequest request) {
+        return ResponseEntity.ok(authService.googleLogin(request));
     }
 }
