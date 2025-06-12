@@ -45,14 +45,13 @@ Other files:
 ## ⚙️ Tech Stack
 
 - Java 17+
-- Spring Boot 3.x
+- Spring Boot
 - Spring Security
 - Firebase Admin SDK
 - PostgreSQL
 - Hibernate/JPA
 - Maven
 - Lombok
-- JUnit
 
 ---
 
@@ -133,7 +132,7 @@ firebase.config.path=src/main/resources/firebase-adminsdk.json
 ## 📬 Contact
 
 **Devansh Dhopte**  
-📧 your-devanshdhopte@gmail.com  
+📧 devanshdhopte@gmail.com  
 GitHub: [@Devansh176](https://github.com/Devansh176)
 
 ---
