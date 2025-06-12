@@ -18,19 +18,18 @@ The **SafeHer** backend is a secure, RESTful Spring Boot service powering the Sa
 
 ## 🏗️ Project Structure
 
-src/main/java/com/example/SafeHer/
-│
-├── config/         → Security & Firebase configurations
-├── controller/     → API endpoints for auth, contacts, location
-├── entity/         → JPA entity models (User, Contact, etc.)
-├── payload/        → DTOs and request/response wrappers
-├── repository/     → JPA repositories (UserRepository, ContactRepository)
-└── service/        → Business logic layer
-
-resources/
-└── application.properties → Environment & database configs
-
-test/java/com/example/SafeHer/ → Unit & integration tests
+src/
+├── main/
+│ ├── java/com/example/SafeHer/
+│ │ ├── config/ → Security & Firebase configurations
+│ │ ├── controller/ → API endpoints for auth, contacts, location
+│ │ ├── entity/ → JPA entity models (User, Contact, etc.)
+│ │ ├── payload/ → DTOs and request/response wrappers
+│ │ ├── repository/ → JPA repositories (UserRepository, etc.)
+│ │ └── service/ → Business logic layer
+│ └── resources/
+│ └── application.properties → Environment & database configs
+├── test/java/com/example/SafeHer/ → Unit & integration tests
 
 Other files:
 - pom.xml
