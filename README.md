@@ -18,23 +18,26 @@ The **SafeHer** backend is a secure, RESTful Spring Boot service powering the Sa
 
 ## 🏗️ Project Structure
 
-src/
-├── main/
-│ ├── java/com/example/SafeHer/
-│ │ ├── config/ # Security & app configs (Firebase, JWT, etc.)
-│ │ ├── controller/ # REST API controllers (auth, contacts, location)
-│ │ ├── entity/ # JPA entity classes for User, Contact, etc.
-│ │ ├── payload/ # DTOs (requests, responses, wrappers)
-│ │ ├── repository/ # JPA Repositories for database access
-│ │ └── service/ # Core business logic
-│ └── resources/
-│ └── application.properties # Spring Boot app configuration
-├── test/java/com/example/SafeHer/ # Unit & integration tests
-├── pom.xml # Maven project file
+src/main/java/com/example/SafeHer/
+│
+├── config/         → Security & Firebase configurations
+├── controller/     → API endpoints for auth, contacts, location
+├── entity/         → JPA entity models (User, Contact, etc.)
+├── payload/        → DTOs and request/response wrappers
+├── repository/     → JPA repositories (UserRepository, ContactRepository)
+└── service/        → Business logic layer
 
-yaml
-Copy
-Edit
+resources/
+└── application.properties → Environment & database configs
+
+test/java/com/example/SafeHer/ → Unit & integration tests
+
+Other files:
+- pom.xml
+- .gitignore
+- .gitattributes
+- bfg.jar
+- mvnw, mvnw.cmd
 
 ---
 
@@ -58,22 +61,21 @@ Edit
 
 - Java 17 or later
 - Maven
-- PostgreSQL running locally
+- PostgreSQL is running locally
 - Firebase project with Admin SDK JSON
 
 ### ⚙️ Setup Instructions
 
 1. **Clone the Repository**
-
 ```bash
 git clone https://github.com/your-username/safeher-backend.git
 cd safeher-backend
-Configure application.properties
+```
 
-Edit src/main/resources/application.properties:
+2. **Configure `application.properties`**
+Edit `src/main/resources/application.properties`:
 
-properties
-
+```properties
 # PostgreSQL Configuration
 spring.datasource.url=jdbc:postgresql://localhost:5432/safeher_db
 spring.datasource.username=your_db_username
@@ -84,59 +86,60 @@ spring.jpa.hibernate.ddl-auto=update
 
 # Firebase Admin SDK path
 firebase.config.path=src/main/resources/firebase-adminsdk.json
-Build and Run
+```
 
+3. **Build and Run**
+```bash
 ./mvnw clean install
-./mvnw spring-boot:run
-📡 API Endpoints Overview
-🔐 Auth (Firebase)
-POST /api/auth/login
-→ Authenticates a user using Firebase token.
+./mvnw spring-boot: run
+```
 
-POST /api/auth/register
-→ Registers user by saving Firebase UID and user details.
+---
 
-📞 Emergency Contacts
-GET /api/contacts
-→ Returns current user’s saved emergency contacts.
+## 📡 API Endpoints Overview
 
-POST /api/contacts
-→ Adds a new emergency contact.
+### 🔐 Auth (Firebase)
+- `POST /api/auth/login` → Authenticates user via Firebase token
+- `POST /api/auth/register` → Registers a new user
 
-DELETE /api/contacts/{id}
-→ Removes a specific emergency contact.
+### 📞 Emergency Contacts
+- `GET /api/contacts` → Fetch the user’s emergency contacts
+- `POST /api/contacts` → Add a new contact
+- `DELETE /api/contacts/{id}` → Remove contact
 
-📍 Location
-POST /api/location/share
-→ Shares current location with selected emergency contacts via SMS or notification.
+### 📍 Location
+- `POST /api/location/share` → Share current location with selected contacts
 
-🧪 Running Tests
+---
+
+## 🧪 Running Tests
+
+```bash
 ./mvnw test
 
+---
 
-🙋 Contributing
-Fork the repo
+## 🙋 Contributing
 
-Create a new feature branch (git checkout -b feature/feature-name)
+1. Fork the repo
+2. Create a new branch (`git checkout -b feature/feature-name`)
+3. Commit your changes (`git commit -am 'Add new feature'`)
+4. Push to the branch (`git push origin feature-name`)
+5. Create a Pull Request 🎉
 
-Commit your changes (git commit -am 'Add new feature')
+---
 
-Push to the branch (git push origin feature/feature-name)
+## 📬 Contact
 
-Open a pull request 🎉
+**Devansh Dhopte**  
+📧 your-devanshdhopte@gmail.com  
+GitHub: [@Devansh176](https://github.com/Devansh176)
 
-📬 Contact
-Devansh Dhopte
-📧 your-devanshdhopte@gmai.com
-GitHub: /Devansh176
+---
 
-💡 Future Improvements
-Docker and CI/CD setup
+## 💡 Future Improvements
 
-Admin panel for emergency monitoring
-
-Firebase Cloud Messaging (FCM) integration
-
-Enhanced geofencing logic for unsafe area alerts
-
-
+- Docker and CI/CD setup
+- Admin panel for monitoring alerts
+- Firebase Cloud Messaging (FCM)
+- Smart geofencing & path learning
